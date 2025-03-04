@@ -4,7 +4,7 @@
 
 struct elf_ident {
   char magic[4];
-  u8 class;
+  u8 e_class;
   u8 endianness;
   u8 version;
   u8 os_abi;

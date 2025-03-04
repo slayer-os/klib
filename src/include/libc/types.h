@@ -14,9 +14,6 @@ typedef signed short s16;
 typedef signed int s32;
 typedef signed long s64;
 
-typedef enum { false, true } bit;
-typedef bit bool;
-
 typedef u64 size_t;
 typedef s64 ssize_t;
 

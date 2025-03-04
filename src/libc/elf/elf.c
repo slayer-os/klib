@@ -9,10 +9,10 @@ void elf_parse(struct elf_desc *desc, void *data, size_t size) {
   assert(*((u32*)desc->header->e_ident.magic) == 0x464c457f, "Invalid ELF magic");
   desc->phdrs = (struct elf_phdr *)(data + desc->header->e_phoff);
   desc->shdrs = (struct elf_shdr *)(data + desc->header->e_shoff);
-  desc->symtab = NULL;
-  desc->strtab = NULL;
-  desc->shstrtab = NULL;
-  desc->shstrtab_shdr = NULL;
+  desc->symtab = nullptr;
+  desc->strtab = nullptr;
+  desc->shstrtab = nullptr;
+  desc->shstrtab_shdr = nullptr;
 
   struct elf_shdr *possible_dbg[16];
   int dbg_count = 0;

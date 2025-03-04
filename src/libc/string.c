@@ -144,7 +144,7 @@ u16 strcmp(const char *str1, const char *str2) {
     return 0;
 }
 
-bit memcmp(const void *ptr1, const void *ptr2, u32 n) {
+bool memcmp(const void *ptr1, const void *ptr2, u32 n) {
     const u8 *p1 = (const u8 *)ptr1;
     const u8 *p2 = (const u8 *)ptr2;
     for (u32 i = 0; i < n; i++) {
@@ -156,16 +156,16 @@ bit memcmp(const void *ptr1, const void *ptr2, u32 n) {
 }
 
 char *strtok(const char *str, const char *delim) {
-    static char *token = NULL;
+    static char *token = nullptr;
     if (str) {
         token = (char*)str;
     } else if (!token) {
-        return NULL;
+        return nullptr;
     }
     char *start = token;
     token += strspn(token, delim);
     if (!*token) {
-        return NULL;
+        return nullptr;
     }
     token += strcspn(token, delim);
     if (*token) {
@@ -197,7 +197,7 @@ const char* strchr( const char* str, int ch ) {
         }
         str++;
     }
-    return NULL;
+    return nullptr;
 }
 
 void strcpy(char *dest, const char *src) {
