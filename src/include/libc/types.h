@@ -21,4 +21,6 @@ typedef s64 ssize_t;
 #define NULL ((void*)0)
 #endif
 
+typedef __uint128_t u128;
+
 #endif

@@ -2,6 +2,24 @@
 #include <libc/string.h>
 #include <libc/intx.h>
 
+void quadtoa_hex(char *buffer, u512 n) {
+  char tmp[NLIMBS_512 * 16 + 1];
+  int pos = 0;
+  for (int i = NLIMBS_512 - 1; i >= 0; i--) {
+      u64 limb = n.limbs[i];
+      for (int j = 15; j >= 0; j--) {
+          u8 nibble = (limb >> (j * 4)) & 0xF;
+          tmp[pos++] = nibble < 10 ? '0' + nibble : 'a' + nibble - 10;
+      }
+  }
+  tmp[pos] = '\0';
+  char *p = tmp;
+  while (*p == '0' && *(p + 1) != '\0') {
+      p++;
+  }
+  strcpy(buffer, p);
+}
+
 void vsprintf(char *buffer, const char *format, va_list args) {
     size_t b_pos=0;
     size_t f_pos=0;
@@ -28,11 +46,12 @@ void vsprintf(char *buffer, const char *format, va_list args) {
             }
             else if (format[f_pos] == 'x') {
                 if (v_quad) {
-                    /*u512 v = va_arg(args, u512);*/
-                    /*char str[128];*/
-                    /*quadtoa_hex(str, v);*/
-                    /*memcpy(buffer+b_pos, str, strlen(str));*/
-                    /*b_pos += strlen(str)-1;*/
+                    u512 v = va_arg(args, u512);
+                    char str[128];
+                    if (ext_prefix) { str[0] = '0'; str[1]='x'; }
+                    quadtoa_hex(str + (ext_prefix ? 2 : 0), v);
+                    memcpy(buffer+b_pos, str, strlen(str));
+                    b_pos += strlen(str)-1;
                 } else {
                   s64 i = 0;
                   if (v_long) { i = va_arg(args, s64); }

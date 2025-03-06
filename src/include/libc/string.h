@@ -20,6 +20,7 @@ size_t strspn( const char* dest, const char* src );
 size_t strcspn( const char *dest, const char *src );
 const char* strchr( const char* str, int ch );
 void strcpy(char *dest, const char *src);
+void reverse_str(char *str, size_t length);
 //char *strdup(const char *str);
 
 #endif
