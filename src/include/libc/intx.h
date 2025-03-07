@@ -15,6 +15,8 @@ public:
   u512(u128 v);
   static u512 from_hex(const char *s);
   static u512 from_dec(const char *s);
+
+  static u512 expmod(const u512& x, const u512& e, const u512& m);
 };
 
 // -- Operator Overloads --
@@ -23,11 +25,12 @@ u512 operator+(const u512& x, const u512& y);
 u512 operator-(const u512& x, const u512& y);
 u512 operator*(const u512& x, const u512& y);
 u512 operator/(const u512& x, const u512& y);
+// Bitwise
 u512 operator<<(const u512& x, int n);
 u512 operator>>(const u512& x, int n);
+u512 operator|(const u512& x, const u512 &y);
 // Modular Arithmetic
 u512 operator%(const u512& x, const u512& y);
-u512 expmod(const u512& x, const u512& e, const u512& m);
 
 // Comparison
 bool operator<(const u512& x, const u512& y);

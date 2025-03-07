@@ -12,6 +12,12 @@ int bit_length(const u512& x) {
   return 0;
 }
 
+int get_bit(const u512& x, int bit_index) {
+  int limb_index = bit_index / 64;
+  int shift = bit_index % 64;
+  return (x.limbs[limb_index] >> shift) & 1;
+}
+
 u512 operator+(const u512& x, const u512& y) {
   u512 z;
   u64 carry = 0;
@@ -75,28 +81,30 @@ u512 operator>>(const u512& x, int n) {
   return z;
 }
 
+u512 operator|(const u512& x, const u512 &y) {
+  u512 r;
+  for (int i=0;i<NLIMBS_512;i++) {
+    r.limbs[i] = x.limbs[i] | y.limbs[i];
+  }
+  return r;
+}
+
 u512 operator/(const u512& dividend, const u512& divisor) {
   assert(!(divisor == 0), "Division by zero");
 
-  u512 quotient;
-  u512 remainder = dividend;
+  u512 quotient = {0};
+  u512 remainder = {0};
 
-  int n = bit_length(dividend);
-  int d = bit_length(divisor);
-
-  if (n < d) {
-      return quotient; 
-  }
-
-  int shift = n - d;
-  u512 shiftedDivisor = divisor << shift;
-
-  for (int i = shift; i >= 0; i--) {
-    if (remainder >= shiftedDivisor) {
-      remainder = remainder - shiftedDivisor;
-      quotient = quotient + (u512(1) << i);
+  // long division implementation
+  for (int i = 511; i >= 0; i--) {
+    remainder = remainder << 1;
+    if (get_bit(dividend, i) == 1) {
+      remainder = remainder + 1;
     }
-    shiftedDivisor = shiftedDivisor >> 1;
+    if (remainder >= divisor) {
+      remainder = remainder - divisor;
+      quotient = quotient | (u512(1) << i);
+    }
   }
   return quotient;
 }
@@ -106,23 +114,20 @@ u512 operator%(const u512& x, const u512& y) {
   return x - (x / y) * y;
 }
 
-u512 expmod(const u512& x, const u512& y, const u512& m) {
+u512 u512::expmod(const u512& x, const u512& y, const u512& m) {
   if (m == 1) return 0;
   u512 r = 1;
   u512 base = x % m;
   u512 e = y;
-  
   while (e > 0) {
-    if (e.limbs[0] & 1) {
+    if (e % 2 == 1) {
       r = (r * base) % m;
     }
     e = e >> 1;
     base = (base * base) % m;
   }
-
   return r;
 }
-
 
 bool operator<(const u512& x, const u512& y) {
   for (int i = NLIMBS_512 - 1; i >= 0; i--) {
@@ -193,6 +198,7 @@ template u512::u512(u8);
 template u512::u512(u16);
 template u512::u512(u32);
 template u512::u512(u64);
+template u512::u512<int>(int);
 template u512::u512<long>(long);
 template u512::u512<long long>(long long);
 
