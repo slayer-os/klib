@@ -3,6 +3,7 @@
 #define LIBC_STRING_H
 #include <libc/types.h>
 
+extern "C" {
 void *memcpy(void *dest, const void *src, u32 n);
 void *memset(void *s, int c, u32 n);
 void *memmove(void *dest, const void *src, u32 n);
@@ -22,5 +23,6 @@ const char* strchr( const char* str, int ch );
 void strcpy(char *dest, const char *src);
 void reverse_str(char *str, size_t length);
 //char *strdup(const char *str);
+}
 
 #endif

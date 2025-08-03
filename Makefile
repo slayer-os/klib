@@ -26,21 +26,21 @@ SRC_DIR := src/libc
 LIBC_LIB := build/libc.a
 
 
-SOURCE_FILES := $(shell find $(SRC_DIR) -name '*.cxx' -or -name '*.s')
-OBJECT_FILES := $(patsubst $(SRC_DIR)/%.cxx, $(OBJ_DIR)/%.o, $(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(SOURCE_FILES)))
+SOURCE_FILES := $(shell find $(SRC_DIR) -name '*.cc' -or -name '*.s')
+OBJECT_FILES := $(patsubst $(SRC_DIR)/%.cc, $(OBJ_DIR)/%.o, $(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(SOURCE_FILES)))
 
 all: $(LIBC_LIB)
 
 $(LIBC_LIB): $(OBJECT_FILES)
 	$(AR) rcs $@ $(OBJECT_FILES)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cxx
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc
 	@mkdir -p $(@D)
-	$(CXX) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 	@mkdir -p $(@D)
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)

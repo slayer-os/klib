@@ -1,5 +1,6 @@
 #include <libc/string.h>
 
+extern "C" {
 void *memcpy(void *dest, const void *src, u32 n) {
     u8 *pdest = (u8 *)dest;
     const u8 *psrc = (const u8 *)src;
@@ -203,4 +204,5 @@ const char* strchr( const char* str, int ch ) {
 void strcpy(char *dest, const char *src) {
     memcpy(dest, src, strlen(src));
     dest[strlen(src)] = '\0';
+}
 }

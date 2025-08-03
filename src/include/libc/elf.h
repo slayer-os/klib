@@ -1,5 +1,4 @@
-#ifndef LIBC_ELF_H
-#define LIBC_ELF_H
+#pragma once
 #include <libc/types.h>
 
 struct elf_ident {
@@ -168,6 +167,8 @@ struct elf_desc {
   const char *strtab;
   char *shstrtab;
   struct elf_shdr *shstrtab_shdr;
+
+  void *raw_ptr;
 };
 
 #define ELF64_ST_BIND(i) ((i) >> 4)
@@ -175,4 +176,3 @@ struct elf_desc {
 
 void elf_parse(struct elf_desc *desc, void *data, size_t size);
 
-#endif

@@ -6,6 +6,7 @@
 void elf_parse(struct elf_desc *desc, void *data, size_t size) {
   assert(size >= sizeof(struct elf_header), "Invalid ELF file");
   desc->header = (struct elf_header *)data;
+  desc->raw_ptr = data;
   assert(*((u32*)desc->header->e_ident.magic) == 0x464c457f, "Invalid ELF magic");
   desc->phdrs = (struct elf_phdr *)(data + desc->header->e_phoff);
   desc->shdrs = (struct elf_shdr *)(data + desc->header->e_shoff);
