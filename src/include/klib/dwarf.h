@@ -1,6 +1,6 @@
 #pragma once
-#include <libc/types.h>
-#include <libc/elf.h>
+#include <klib/types.h>
+#include <klib/elf.h>
 
 struct Addr2LineResult {
   const char* file;

@@ -1,4 +1,4 @@
-#include <libc/memory.h>
+#include <klib/memory.h>
 
 void *operator new(size_t size) {
     return kmalloc(size);

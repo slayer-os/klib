@@ -1,7 +1,7 @@
-#include <libc/elf.h>
-#include <libc/assert.h>
-#include <libc/string.h>
-#include <libc/dwarf.h>
+#include <klib/elf.h>
+#include <klib/assert.h>
+#include <klib/string.h>
+#include <klib/dwarf.h>
 
 void elf_parse(struct elf_desc *desc, void *data, size_t size) {
   assert(size >= sizeof(struct elf_header), "Invalid ELF file");

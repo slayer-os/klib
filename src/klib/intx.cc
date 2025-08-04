@@ -1,6 +1,6 @@
-#include <libc/intx.h>
-#include <libc/string.h>
-#include <libc/assert.h>
+#include <klib/intx.h>
+#include <klib/string.h>
+#include <klib/assert.h>
 
 int bit_length(const u512& x) {
   for (int i = NLIMBS_512 - 1; i >= 0; i--) {

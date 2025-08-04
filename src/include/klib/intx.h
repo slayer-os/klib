@@ -1,6 +1,5 @@
-#ifndef LIBC_INT_EXT_H
-#define LIBC_INT_EXT_H
-#include <libc/types.h>
+#pragma once
+#include <klib/types.h>
 
 #define NLIMBS_512 8
 
@@ -41,5 +40,3 @@ bool operator==(const u512& x, const u512& y);
 bool operator!=(const u512& x, const u512& y);
 // Conversion
 u512 operator""_u512(const char *s);
-
-#endif

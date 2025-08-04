@@ -1,6 +1,4 @@
-#ifndef LIBC_TYPES
-#define LIBC_TYPES
-
+#pragma once
 // Not actually part of a libc but it's a good idea to have it here
 
 
@@ -22,5 +20,3 @@ typedef s64 ssize_t;
 #endif
 
 typedef __uint128_t u128;
-
-#endif

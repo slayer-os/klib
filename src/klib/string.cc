@@ -1,4 +1,4 @@
-#include <libc/string.h>
+#include <klib/string.h>
 
 extern "C" {
 void *memcpy(void *dest, const void *src, u32 n) {

@@ -1,5 +1,5 @@
 #pragma once
-#include <libc/types.h>
+#include <klib/types.h>
 
 struct elf_ident {
   char magic[4];

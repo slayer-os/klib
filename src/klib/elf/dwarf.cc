@@ -1,7 +1,7 @@
-#include <libc/dwarf.h>
-#include <libc/memory.h>
-#include <libc/assert.h>
-#include <libc/string.h>
+#include <klib/dwarf.h>
+#include <klib/memory.h>
+#include <klib/assert.h>
+#include <klib/string.h>
 
 using namespace DWARF;
 

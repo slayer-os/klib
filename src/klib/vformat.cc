@@ -1,6 +1,6 @@
 #include <stdarg.h>
-#include <libc/string.h>
-#include <libc/intx.h>
+#include <klib/string.h>
+#include <klib/intx.h>
 
 void quadtoa_hex(char *buffer, u512 n) {
   char tmp[NLIMBS_512 * 16 + 1];

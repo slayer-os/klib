@@ -22,16 +22,16 @@ INCLUDES := -Isrc/include
 
 OBJ_DIR := build/obj
 
-SRC_DIR := src/libc
-LIBC_LIB := build/libc.a
+SRC_DIR := src/klib
+KLIB_LIB := build/klib.a
 
 
 SOURCE_FILES := $(shell find $(SRC_DIR) -name '*.cc' -or -name '*.s')
 OBJECT_FILES := $(patsubst $(SRC_DIR)/%.cc, $(OBJ_DIR)/%.o, $(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(SOURCE_FILES)))
 
-all: $(LIBC_LIB)
+all: $(KLIB_LIB)
 
-$(LIBC_LIB): $(OBJECT_FILES)
+$(KLIB_LIB): $(OBJECT_FILES)
 	$(AR) rcs $@ $(OBJECT_FILES)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc
@@ -44,6 +44,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 
 clean:
 	rm -rf $(OBJ_DIR)
-	rm -f $(LIBC_LIB)
+	rm -f $(KLIB_LIB)
 
 .PHONY: all clean

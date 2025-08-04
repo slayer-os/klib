@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #ifndef LIBC_STRING_H
 #define LIBC_STRING_H
-#include <libc/types.h>
+#include <klib/types.h>
 
 extern "C" {
 void *memcpy(void *dest, const void *src, u32 n);
