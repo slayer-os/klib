@@ -5,10 +5,10 @@
 struct Addr2LineResult {
   const char* file;
   u32 line;
+  u64 address;
   bool found;
 };
 
 namespace DWARF {
   Addr2LineResult addr2line_lookup(struct elf_desc *k_desc, u64 addr);
 }
-

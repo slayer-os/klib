@@ -17,11 +17,11 @@ void sprintf(char *buffer, const char *format, ...);
 u16 strcmp(const char *str1, const char *str2);
 bool memcmp(const void *ptr1, const void *ptr2, u32 n);
 char *strtok(const char *str, const char *delim);
-size_t strspn( const char* dest, const char* src );
-size_t strcspn( const char *dest, const char *src );
+usize strspn( const char* dest, const char* src );
+usize strcspn( const char *dest, const char *src );
 const char* strchr( const char* str, int ch );
 void strcpy(char *dest, const char *src);
-void reverse_str(char *str, size_t length);
+void reverse_str(char *str, usize length);
 //char *strdup(const char *str);
 }
 

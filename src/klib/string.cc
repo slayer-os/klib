@@ -42,9 +42,9 @@ u32 strlen(const char *str) {
     return len;
 }
 
-void reverse_str(char *str, size_t length) {
-    size_t start = 0;
-    size_t end = length - 1;
+void reverse_str(char *str, usize length) {
+    usize start = 0;
+    usize end = length - 1;
     while (start < end) {
         char temp = str[start];
         str[start] = str[end];
@@ -62,7 +62,7 @@ char* itoa(s64 value, char *str, int base) {
 
     const char digits[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     s64 num = value;
-    size_t i = 0;
+    usize i = 0;
     int is_negative = 0;
 
     if (num == 0) {
@@ -94,7 +94,7 @@ char* itoa(s64 value, char *str, int base) {
 
 char* itoa_hex(u64 value, char *str) {
     const char hex_digits[] = "0123456789abcdef";
-    size_t i = 0;
+    usize i = 0;
 
     if (value == 0) {
         str[i++] = '0';
@@ -103,9 +103,9 @@ char* itoa_hex(u64 value, char *str) {
     }
 
     while (value != 0) {
-        int rem = value & 0xF; // Get the last 4 bits
+        int rem = value & 0xF;
         str[i++] = hex_digits[rem];
-        value >>= 4; // Shift right by 4 bits
+        value >>= 4;
     }
 
     str[i] = '\0';
@@ -116,7 +116,7 @@ char* itoa_hex(u64 value, char *str) {
 
 u64 atoi(const char *ptr) {
     u64 res = 0;
-    for (size_t i = 0; i < strlen(ptr); i++) {
+    for (usize i = 0; i < strlen(ptr); i++) {
         res = res * 10 + (ptr[i] - '0');
     }
     return res;
@@ -124,8 +124,8 @@ u64 atoi(const char *ptr) {
 
 
 void strcat(char *dest, const char *src) {
-    size_t bpos = 0;
-    size_t slen = strlen(src);
+    usize bpos = 0;
+    usize slen = strlen(src);
     while (dest[bpos]) {
         bpos++;
     }
@@ -137,7 +137,7 @@ u16 strcmp(const char *str1, const char *str2) {
     if (strlen(str1) != strlen(str2)) {
         return 1;
     }
-    for (size_t i = 0; i < strlen(str1); i++) {
+    for (usize i = 0; i < strlen(str1); i++) {
         if (str1[i] != str2[i]) {
             return 1;
         }
@@ -175,16 +175,16 @@ char *strtok(const char *str, const char *delim) {
     return start;
 }
 
-size_t strspn( const char* dest, const char* src ) {
-    size_t count = 0;
+usize strspn( const char* dest, const char* src ) {
+    usize count = 0;
     while (*dest && strchr(src, *dest++)) {
         count++;
     }
     return count;
 }
 
-size_t strcspn( const char *dest, const char *src ) {
-    size_t count = 0;
+usize strcspn( const char *dest, const char *src ) {
+    usize count = 0;
     while (*dest && !strchr(src, *dest++)) {
         count++;
     }

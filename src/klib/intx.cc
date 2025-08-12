@@ -109,7 +109,6 @@ u512 operator/(const u512& dividend, const u512& divisor) {
   return quotient;
 }
 
-// Modular
 u512 operator%(const u512& x, const u512& y) {
   return x - (x / y) * y;
 }
@@ -174,7 +173,6 @@ bool operator!=(const u512& x, const u512& y) {
   return !(x == y);
 }
 
-// -- Constructors --
 u512::u512() {
   for (int i = 0; i < 8; i++) {
     limbs[i] = 0;
@@ -189,7 +187,7 @@ u512::u512(T value) {
     limbs[i] = 0;
   }
 
-  for (size_t i = 0; i < sizeof(T); i++) {
+  for (usize i = 0; i < sizeof(T); i++) {
     limbs[i / 8] |= (static_cast<u64>(value) & 0xFF) << (8 * (i % 8));
     value >>= 8;
   }
@@ -240,7 +238,6 @@ u512 u512::from_dec(const char *s) {
   return x;
 }
 
-// Conversion
 u512 operator""_u512(const char *s) {
   if (s[0] == '0' && s[1] == 'x') {
     return u512::from_hex(s+2);

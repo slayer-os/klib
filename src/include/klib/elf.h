@@ -174,5 +174,5 @@ struct elf_desc {
 #define ELF64_ST_BIND(i) ((i) >> 4)
 #define ELF64_ST_TYPE(i) ((i) & 0xf)
 
-void elf_parse(struct elf_desc *desc, void *data, size_t size);
+void elf_parse(struct elf_desc *desc, void *data, usize size);
 

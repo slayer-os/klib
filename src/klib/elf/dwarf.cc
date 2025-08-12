@@ -98,9 +98,9 @@ static const char* build_full_path(const char* dir, const char* file) {
   if (!dir || !file) return file;
   if (dir[0] == '.' && dir[1] == '\0') return file;
   
-  size_t dir_len = strlen(dir);
-  size_t file_len = strlen(file);
-  size_t total_len = dir_len + 1 + file_len + 1;
+  usize dir_len = strlen(dir);
+  usize file_len = strlen(file);
+  usize total_len = dir_len + 1 + file_len + 1;
   
   char* full_path = (char*)kmalloc(total_len);
   if (!full_path) return file;
@@ -115,14 +115,14 @@ static const char* build_full_path(const char* dir, const char* file) {
 }
 
 Addr2LineResult DWARF::addr2line_lookup(struct elf_desc *k_desc, u64 addr) {
-  Addr2LineResult result = {nullptr, 0, false};
+  Addr2LineResult result = {nullptr, 0, 0, false};
   
   if (!k_desc || !k_desc->debug.debug_line) {
     return result;
   }
   
   const u8 *data = (const u8*)(k_desc->debug.debug_line->sh_offset + k_desc->raw_ptr);
-  size_t size = k_desc->debug.debug_line->sh_size;
+  usize size = k_desc->debug.debug_line->sh_size;
   
   if (size == 0) {
     return result;
@@ -131,7 +131,7 @@ Addr2LineResult DWARF::addr2line_lookup(struct elf_desc *k_desc, u64 addr) {
   const u8* p = data;
   const u8* end = data + size;
   
-  Addr2LineResult best_global_match = {nullptr, 0, false};
+  Addr2LineResult best_global_match = {nullptr, 0, 0, false};
   u64 best_global_addr = 0;
   
   while (p < end) {
@@ -207,7 +207,7 @@ Addr2LineResult DWARF::addr2line_lookup(struct elf_desc *k_desc, u64 addr) {
     LineNumberState state;
     state.reset(default_is_stmt != 0);
     
-    Addr2LineResult best_match = {nullptr, 0, false};
+    Addr2LineResult best_match = {nullptr, 0, 0, false};
     u64 best_addr = 0;
     
     p = program_start;
@@ -249,6 +249,7 @@ Addr2LineResult DWARF::addr2line_lookup(struct elf_desc *k_desc, u64 addr) {
                                 include_dirs[file_dirs[state.file]] : ".";
               best_match.file = build_full_path(dir, file_names[state.file]);
               best_match.line = state.line;
+              best_match.address = state.address;
               best_match.found = true;
               best_addr = state.address;
             }
@@ -322,6 +323,7 @@ Addr2LineResult DWARF::addr2line_lookup(struct elf_desc *k_desc, u64 addr) {
                             include_dirs[file_dirs[state.file]] : ".";
           best_match.file = build_full_path(dir, file_names[state.file]);
           best_match.line = state.line;
+          best_match.address = state.address;
           best_match.found = true;
           best_addr = state.address;
         }

@@ -3,7 +3,7 @@
 #include <klib/string.h>
 #include <klib/dwarf.h>
 
-void elf_parse(struct elf_desc *desc, void *data, size_t size) {
+void elf_parse(struct elf_desc *desc, void *data, usize size) {
   assert(size >= sizeof(struct elf_header), "Invalid ELF file");
   desc->header = (struct elf_header *)data;
   desc->raw_ptr = data;
@@ -17,7 +17,7 @@ void elf_parse(struct elf_desc *desc, void *data, size_t size) {
 
   struct elf_shdr *possible_dbg[16];
   int dbg_count = 0;
-  for (size_t i = 0; i < desc->header->e_shnum; i++) {
+  for (usize i = 0; i < desc->header->e_shnum; i++) {
     struct elf_shdr *shdr = &desc->shdrs[i];
     if (shdr->sh_type == SHT_SYMTAB) {
       desc->symtab = (struct elf_sym *)(data + shdr->sh_offset);
